@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>骨質疏鬆飲食推薦系統</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <button class="nav-btn" onclick="showPage('home')">首頁</button>
+    <button class="nav-btn" onclick="showPage('questionnaire')">問卷</button>
+    <button class="nav-btn" onclick="showPage('recommendation')">推薦</button>
+    <button class="nav-btn" onclick="showPage('profile')">個人</button>
+    <button class="nav-btn" onclick="showPage('settings')">設定</button>
+  </nav>
+
+  <main>
+    <section id="home" class="page">
+      <h1>歡迎使用骨質疏鬆飲食推薦系統</h1>
+      <div class="card">
+        <h2>健康小知識</h2>
+        <p>多攝取高鈣食物、曬太陽有助於骨骼健康。</p>
+      </div>
+      <div class="card">
+        <h2>公告</h2>
+        <p>最新骨質疏鬆防治講座開放報名！</p>
+      </div>
+    </section>
+
+    <section id="questionnaire" class="page" style="display:none;">
+      <h1>骨質疏鬆風險問卷</h1>
+      <form id="quizForm">
+        <label>年齡：
+          <input type="number" id="age" min="30" max="90" value="50" required>
+        </label>
+        <label>性別：
+          <select id="gender">
+            <option value="女性">女性</option>
+            <option value="男性">男性</option>
+          </select>
+        </label>
+        <label>
+          <input type="checkbox" id="exercise"> 每週有規律運動
+        </label>
+        <button type="submit">提交問卷</button>
+      </form>
+    </section>
+
+    <section id="recommendation" class="page" style="display:none;">
+      <h1>推薦飲食清單</h1>
+      <div id="recommendList">
+        <!-- 推薦內容由 JS 動態產生 -->
+      </div>
+    </section>
+
+    <section id="profile" class="page" style="display:none;">
+      <h1>個人基本資料</h1>
+      <form id="profileForm">
+        <label>姓名：<input type="text" id="name" placeholder="請輸入姓名"></label>
+        <label>年齡：<input type="number" id="profileAge" min="1" max="120"></label>
+        <button type="submit">儲存</button>
+      </form>
+    </section>
+
+    <section id="settings" class="page" style="display:none;">
+      <h1>設定</h1>
+      <div class="card">
+        <h2>語言切換</h2>
+        <p>（此範例僅提供中文）</p>
+      </div>
+      <div class="card">
+        <h2>通知設定</h2>
+        <p>（此範例僅為靜態展示）</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
