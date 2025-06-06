@@ -3,79 +3,213 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>骨質疏鬆飲食推薦系統</title>
+  <title>骨質疏鬆風險評估系統</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <nav class="navbar">
-    <button class="nav-btn" onclick="showPage('home')">首頁</button>
-    <button class="nav-btn" onclick="showPage('questionnaire')">問卷</button>
-    <button class="nav-btn" onclick="showPage('recommendation')">推薦</button>
-    <button class="nav-btn" onclick="showPage('profile')">個人</button>
-    <button class="nav-btn" onclick="showPage('settings')">設定</button>
-  </nav>
-
   <main>
-    <section id="home" class="page">
-      <h1>歡迎使用骨質疏鬆飲食推薦系統</h1>
-      <div class="card">
-        <h2>健康小知識</h2>
-        <p>多攝取高鈣食物、曬太陽有助於骨骼健康。</p>
-      </div>
-      <div class="card">
-        <h2>公告</h2>
-        <p>最新骨質疏鬆防治講座開放報名！</p>
+    <!-- 首頁 -->
+    <section id="welcome" class="page active">
+      <div class="card welcome-card">
+        <h1>骨質疏鬆風險評估系統</h1>
+        <p>透過簡單問卷，預測您的骨質疏鬆風險，並獲得專屬飲食建議！</p>
+        <button class="main-btn" id="startBtn">開始評估</button>
       </div>
     </section>
 
-    <section id="questionnaire" class="page" style="display:none;">
-      <h1>骨質疏鬆風險問卷</h1>
-      <form id="quizForm">
-        <label>年齡：
-          <input type="number" id="age" min="30" max="90" value="50" required>
-        </label>
-        <label>性別：
-          <select id="gender">
-            <option value="女性">女性</option>
-            <option value="男性">男性</option>
-          </select>
-        </label>
-        <label>
-          <input type="checkbox" id="exercise"> 每週有規律運動
-        </label>
-        <button type="submit">提交問卷</button>
-      </form>
-    </section>
-
-    <section id="recommendation" class="page" style="display:none;">
-      <h1>推薦飲食清單</h1>
-      <div id="recommendList">
-        <!-- 推薦內容由 JS 動態產生 -->
+    <!-- Step 1：個人基本資料調查表 -->
+    <section id="step1" class="page" style="display:none;">
+      <div class="card">
+        <div class="progress-bar"><div class="progress" style="width:50%"></div></div>
+        <h2>個人基本資料</h2>
+        <form id="formStep1">
+          <label>稱呼：<input type="text" id="nickname" required placeholder="請輸入姓名或暱稱"></label>
+          <div class="row-flex">
+            <label>年齡：<input type="number" id="age" min="1" max="120" required></label>
+            <label>性別：
+              <select id="gender" required>
+                <option value="">請選擇</option>
+                <option value="女性">女性</option>
+                <option value="男性">男性</option>
+              </select>
+            </label>
+          </div>
+          <div class="row-flex">
+            <label>身高：<input type="number" id="height" min="100" max="250" required> 公分</label>
+            <label>體重：<input type="number" id="weight" min="30" max="200" required> 公斤</label>
+          </div>
+          <div id="bmiBox" class="bmi-box" style="display:none;"></div>
+          <button type="submit" class="main-btn">開始評估</button>
+        </form>
       </div>
     </section>
 
-    <section id="profile" class="page" style="display:none;">
-      <h1>個人基本資料</h1>
-      <form id="profileForm">
-        <label>姓名：<input type="text" id="name" placeholder="請輸入姓名"></label>
-        <label>年齡：<input type="number" id="profileAge" min="1" max="120"></label>
-        <button type="submit">儲存</button>
-      </form>
+    <!-- Step 2：環境荷爾蒙評估表 -->
+    <section id="step2" class="page" style="display:none;">
+      <div class="card">
+        <div class="progress-bar"><div class="progress" style="width:100%"></div></div>
+        <h2>環境荷爾蒙評估表</h2>
+        <form id="formStep2">
+          <div id="menopauseBox" style="display:none; margin-bottom:1.2rem;">
+            <label>（女性）是否已停經？
+              <select id="menopause">
+                <option value="">請選擇</option>
+                <option value="是">是</option>
+                <option value="否">否</option>
+              </select>
+            </label>
+          </div>
+          <div class="env-section">
+            <h3>食</h3>
+            <label>經常食用加工食品（如香腸、火腿、罐頭）？
+              <select id="foodProcessed" required>
+                <option value="">請選擇</option>
+                <option value="經常">經常</option>
+                <option value="偶爾">偶爾</option>
+                <option value="很少或沒有">很少或沒有</option>
+              </select>
+            </label>
+            <label>經常食用微波爐加熱的塑膠包裝食品？
+              <select id="foodMicrowave" required>
+                <option value="">請選擇</option>
+                <option value="經常">經常</option>
+                <option value="偶爾">偶爾</option>
+                <option value="很少或沒有">很少或沒有</option>
+              </select>
+            </label>
+            <label>飲食習慣偏高鹽、高糖或高油脂？
+              <select id="foodUnhealthy" required>
+                <option value="">請選擇</option>
+                <option value="經常">經常</option>
+                <option value="偶爾">偶爾</option>
+                <option value="很少或沒有">很少或沒有</option>
+              </select>
+            </label>
+            <label>經常飲用含糖飲料或手搖飲？
+              <select id="foodSugaryDrink" required>
+                <option value="">請選擇</option>
+                <option value="經常">經常</option>
+                <option value="偶爾">偶爾</option>
+                <option value="很少或沒有">很少或沒有</option>
+              </select>
+            </label>
+          </div>
+          <div class="env-section">
+            <h3>衣</h3>
+            <label>經常穿著合成纖維（如聚酯纖維、尼龍等）衣物？
+              <select id="clothSynthetic" required>
+                <option value="">請選擇</option>
+                <option value="經常">經常</option>
+                <option value="偶爾">偶爾</option>
+                <option value="很少或沒有">很少或沒有</option>
+              </select>
+            </label>
+            <label>經常使用防水、防污塗層衣物或配件？
+              <select id="clothCoating" required>
+                <option value="">請選擇</option>
+                <option value="經常">經常</option>
+                <option value="偶爾">偶爾</option>
+                <option value="很少或沒有">很少或沒有</option>
+              </select>
+            </label>
+            <label>經常使用塑膠材質鞋子或配件？
+              <select id="clothPlastic" required>
+                <option value="">請選擇</option>
+                <option value="經常">經常</option>
+                <option value="偶爾">偶爾</option>
+                <option value="很少或沒有">很少或沒有</option>
+              </select>
+            </label>
+          </div>
+          <div class="env-section">
+            <h3>住</h3>
+            <label>住家或工作環境鄰近工廠、焚化爐或交通繁忙道路？
+              <select id="livePollution" required>
+                <option value="">請選擇</option>
+                <option value="是">是</option>
+                <option value="否">否</option>
+              </select>
+            </label>
+            <label>經常接觸殺蟲劑、除草劑或強力清潔劑？
+              <select id="liveChemicals" required>
+                <option value="">請選擇</option>
+                <option value="經常">經常</option>
+                <option value="偶爾">偶爾</option>
+                <option value="很少或沒有">很少或沒有</option>
+              </select>
+            </label>
+            <label>經常使用塑膠容器儲存熱食或飲品？
+              <select id="livePlastic" required>
+                <option value="">請選擇</option>
+                <option value="經常">經常</option>
+                <option value="偶爾">偶爾</option>
+                <option value="很少或沒有">很少或沒有</option>
+              </select>
+            </label>
+          </div>
+          <div class="env-section">
+            <h3>行</h3>
+            <label>平時主要交通工具？
+              <select id="transType" required>
+                <option value="">請選擇</option>
+                <option value="汽機車">汽機車</option>
+                <option value="大眾運輸">大眾運輸</option>
+                <option value="步行/自行車">步行/自行車</option>
+              </select>
+            </label>
+            <label>經常在交通繁忙或空氣品質不佳的環境中活動？
+              <select id="transPollution" required>
+                <option value="">請選擇</option>
+                <option value="經常">經常</option>
+                <option value="偶爾">偶爾</option>
+                <option value="很少或沒有">很少或沒有</option>
+              </select>
+            </label>
+            <label>長時間通勤（單程超過1小時）？
+              <select id="transLong" required>
+                <option value="">請選擇</option>
+                <option value="是">是</option>
+                <option value="否">否</option>
+              </select>
+            </label>
+          </div>
+          <button type="submit" class="main-btn">完成評估</button>
+        </form>
+      </div>
     </section>
 
-    <section id="settings" class="page" style="display:none;">
-      <h1>設定</h1>
-      <div class="card">
-        <h2>語言切換</h2>
-        <p>（此範例僅提供中文）</p>
+    <!-- 結果頁 -->
+    <section id="result" class="page" style="display:none;">
+      <div class="card result-card">
+        <h3 class="risk-title">骨質疏鬆風險程度</h3>
+        <div class="score-circle" id="scoreCircle">
+          <span id="scoreValue">--</span>
+        </div>
+        <h2 id="riskLevel">--</h2>
+        <div id="adviceContainer" class="advice-container-vertical">
+          <div class="advice-section">
+            <h3>飲食營養清單</h3>
+            <div id="adviceListFood"></div>
+            <button class="main-btn" id="goFoodRecommendBtn" style="margin-top:1.5rem;">查看飲食推薦</button>
+          </div>
+          <div class="advice-section">
+            <h3>運動建議</h3>
+            <div id="adviceListSport"></div>
+          </div>
+        </div>
+        <button class="main-btn" id="restartBtn">重新評估</button>
       </div>
+    </section>
+
+    <!-- 飲食推薦頁 -->
+    <section id="foodRecommend" class="page" style="display:none;">
       <div class="card">
-        <h2>通知設定</h2>
-        <p>（此範例僅為靜態展示）</p>
+        <h2>飲食推薦套組</h2>
+        <div id="foodRecommendList"></div>
+        <button class="main-btn" id="backToResultBtn" style="margin-top:2rem;">返回評估結果</button>
       </div>
     </section>
   </main>
-
   <script src="app.js"></script>
 </body>
 </html>

@@ -1,0 +1,20 @@
+
+安裝 Flutter（如果還沒安裝）
+
+
+網頁版（Web App）
+技術建議：HTML + CSS + JavaScript（或 React、Vue、Angular 等框架）
+優點：只要有瀏覽器就能用，不需安裝額外軟體
+開發工具：VS Code、Sublime Text、Notepad++ 等
+執行方式：直接用瀏覽器開啟 index.html
+2. 桌面應用程式
+技術建議：Python（Tkinter、PyQt）、C#（WinForms/WPF）、Java（Swing/JavaFX）
+優點：可做成 Windows 執行檔，安裝簡單
+開發工具：PyCharm、Visual Studio、Eclipse 等
+3. 手機App（非Flutter）
+Android：Java/Kotlin + Android Studio
+iOS：Swift + Xcode
+缺點：這些也需要安裝對應的開發工具
+4. Google 表單/Excel/PowerPoint互動
+優點：完全免安裝，適合做問卷、簡單互動推薦
+缺點：功能有限，無法做到完整App體驗
